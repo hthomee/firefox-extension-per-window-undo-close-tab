@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <title>Per-Window Undo Close Tab</title>
+  <defs>
+    <!-- palette: one teal ramp. mist #edf5f5, sage #b8d9d9, lagoon #6ec4b9, tide #479a90, deep #2f6360, night #1a3434 -->
+    <!-- light comes from the top left everywhere: every gradient runs from top left to bottom right -->
+    <linearGradient id="body" x1="0" y1="0" x2="0.55" y2="1">
+      <stop offset="0" stop-color="#7ccdc2"/>
+      <stop offset="0.32" stop-color="#54aea3"/>
+      <stop offset="0.68" stop-color="#3c7c77"/>
+      <stop offset="1" stop-color="#264f4d"/>
+    </linearGradient>
+    <linearGradient id="backTab" x1="0" y1="0" x2="0.45" y2="1">
+      <stop offset="0" stop-color="#b6ddd7"/>
+      <stop offset="1" stop-color="#86c6bc"/>
+    </linearGradient>
+    <linearGradient id="arrow" gradientUnits="userSpaceOnUse" x1="30" y1="40" x2="92" y2="108">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#dcefec"/>
+    </linearGradient>
+  </defs>
+
+  <!-- tab in the background: same height and same slanted edge as the active tab, a mid tint of the same hue.
+       The active tab covers only the lower part of its slant, so the bevel stays readable. The tab reaches down
+       behind the window, so the window's rounded top-left corner shows the tab, never the transparent background. -->
+  <path d="M0 70V6A6 6 0 0 1 6 0H20a5 5 0 0 1 4 1.9L36 16V70Z" fill="url(#backTab)"/>
+  <!-- active tab and window body: one surface, so the tab is part of the window and takes the same gradient.
+       Everything runs to the edge of the icon and the corners are tight (r 7, tabs r 6). -->
+  <path d="M0 23A7 7 0 0 1 7 16H30V6A6 6 0 0 1 36 0H84a5 5 0 0 1 4 1.9L100 16H121A7 7 0 0 1 128 23V121A7 7 0 0 1 121 128H7A7 7 0 0 1 0 121Z" fill="url(#body)"/>
+
+  <!-- undo arrow: filled, sharp-edged, no shadow. The hairline stroke closes the antialiasing seam between ring and head. -->
+  <g fill="url(#arrow)" stroke="url(#arrow)" stroke-width="0.6" stroke-linejoin="miter">
+    <path d="M40.75 50.37 A32.0 32.0 0 1 1 40.75 95.63 L49.94 86.44 A19.0 19.0 0 1 0 49.94 59.56 Z"/>
+    <path d="M35.45 45.07 L32.62 67.70 L55.25 64.87 Z"/>
+  </g>
+</svg>

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Per-Window Undo Close Tab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<style>
+  :root {
+    --bg: #fbfbfa;
+    --surface: #ffffff;
+    --text: #2f3437;
+    --muted: #6b6a66;
+    --border: #e7e6e2;
+    --code: #f3f2ef;
+    --accent: #2f6360;
+    --accent-soft: #edf5f5;
+    --toast-bg: #2f3437;
+    --toast-text: #ffffff;
+    --measure: 40rem;
+    --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #171918;
+      --surface: #1f2221;
+      --text: #e4e7e5;
+      --muted: #9aa3a0;
+      --border: #2e3331;
+      --code: #262a29;
+      --accent: #7ccdc2;
+      --accent-soft: #1d2a28;
+      --toast-bg: #e4e7e5;
+      --toast-text: #171918;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  .page { max-width: var(--measure); margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
+
+  header { display: flex; align-items: center; gap: 1rem; }
+  header img { width: 48px; height: 48px; flex: none; }
+  h1 { margin: 0; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; text-wrap: balance; }
+  .lead { font-size: 1.1875rem; line-height: 1.5; margin: 2rem 0 0; text-wrap: pretty; }
+
+  section { margin-top: 3.5rem; }
+  h2 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; margin: 0 0 .75rem; }
+  h3 { font-size: 1rem; font-weight: 600; margin: 1.75rem 0 .35rem; }
+  p, li { text-wrap: pretty; }
+  p { margin: .6rem 0; }
+  ol, ul { padding-left: 1.4rem; margin: .6rem 0; }
+  li { margin: .35rem 0; padding-left: .2rem; }
+  li::marker { color: var(--muted); }
+  ul.keys { list-style: none; padding-left: 0; }
+  ul.keys li { padding-left: 0; }
+  a { color: var(--accent); text-underline-offset: 2px; }
+
+  kbd {
+    font: 500 .8125rem/1 var(--sans);
+    display: inline-block; padding: .22rem .42rem; border: 1px solid var(--border); border-bottom-width: 2px;
+    border-radius: 5px; background: var(--surface); white-space: nowrap; vertical-align: .05em;
+  }
+  code { font: .875em var(--mono); background: var(--code); padding: .12em .35em; border-radius: 4px; word-break: break-word; }
+  code.copy { cursor: copy; border-bottom: 1px dotted var(--accent); transition: background-color .2s; }
+  code.copy:hover { background: var(--accent-soft); }
+
+  /* one block per setting: what it is, the slider, how to enter the value */
+  .setting { margin-top: 2.25rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+  .setting h3 { margin-top: 0; }
+  .slider { display: flex; align-items: center; gap: 1rem; margin: .5rem 0; }
+  .slider input[type=range] { flex: 1; min-width: 0; height: 2.25rem; accent-color: var(--accent); cursor: pointer; }
+  .slider output { min-width: 5.5rem; text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--accent); }
+  .how { margin-top: .75rem; }
+
+  footer { margin-top: 4rem; font-size: .9375rem; color: var(--muted); }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+  #toast {
+    position: fixed; left: 50%; bottom: 1.25rem; transform: translate(-50%, 8px); width: calc(100% - 2.5rem); max-width: 34rem;
+    padding: .75rem 1rem; border-radius: 8px; background: var(--toast-bg); color: var(--toast-text); font-size: .9375rem;
+    opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease;
+  }
+  #toast.show { opacity: 1; transform: translate(-50%, 0); }
+  @media (prefers-reduced-motion: reduce) {
+    #toast, code.copy { transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <img src="icons/icon-96.png" alt="" width="48" height="48">
+    <h1>Per-Window Undo Close Tab</h1>
+  </header>
+
+  <main>
+    <p class="lead">Reopens the tab you closed last in the window you are working in. It never reopens tabs from other windows and never opens extra windows.</p>
+
+    <section>
+      <h2>Use it</h2>
+      <p>Press the shortcut in the window where you closed the tab:</p>
+      <ul class="keys">
+        <li><strong>Mac:</strong> <kbd>Option</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd></li>
+        <li><strong>Windows and Linux:</strong> <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd></li>
+      </ul>
+      <p>To change it, open <code class="copy about">about:addons</code>, click the gear icon and choose <em>Manage Extension Shortcuts</em>.</p>
+
+      <h3>Use Firefox's own keys (optional)</h3>
+      <p>Firefox's own shortcut for reopening a tab is:</p>
+      <ul class="keys">
+        <li><strong>Mac:</strong> <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd></li>
+        <li><strong>Windows and Linux:</strong> <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd></li>
+      </ul>
+      <p>It wins over the add-on. To use these keys for the add-on, remove Firefox's shortcut:</p>
+      <ol>
+        <li>Type <code class="copy about">about:keyboard</code> into the address bar.</li>
+        <li>Search for <em>closed</em>.</li>
+        <li>Click the <strong>×</strong> next to <strong>Reopen Last Closed Tab</strong>.</li>
+      </ol>
+      <p>The add-on now uses the same keys automatically.</p>
+    </section>
+
+    <section>
+      <h2>Closed windows</h2>
+      <p>The add-on reopens tabs. To reopen a closed window, use Firefox's own command:</p>
+      <ul class="keys">
+        <li><strong>Mac:</strong> <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd></li>
+        <li><strong>Windows and Linux:</strong> <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd></li>
+      </ul>
+      <p>Or choose <em>History → Recently Closed Windows</em>. The window opens with its open tabs. Tabs you had already closed in it stay available there. Reopen them with this add-on.</p>
+    </section>
+
+    <section>
+      <h2>Keep closed tabs for longer (optional)</h2>
+      <p>You do not need this to use the add-on. Firefox keeps 5 closed windows and 25 closed tabs per window, and forgets them after 14 days. If you want it to remember more, you can raise these numbers.</p>
+      <p>The sliders do not change Firefox. They show the value to enter in <code class="copy about">about:config</code>, a Firefox page with advanced settings.
+        Firefox shows a warning first. Click <strong>Accept the Risk and Continue</strong>.</p>
+
+      <div class="setting">
+        <h3>Closed windows</h3>
+        <p>How many closed windows Firefox remembers. Firefox default: 5.</p>
+        <div class="slider">
+          <input id="windows" type="range" min="1" max="50" step="1" aria-label="Closed windows">
+          <output id="windows-out" for="windows"></output>
+        </div>
+        <p class="how"><strong>How to enable:</strong> in <code class="copy about">about:config</code>, search for
+          <code class="copy">browser.sessionstore.max_windows_undo</code> and set it to <code class="copy" id="v-windows"></code>.</p>
+      </div>
+
+      <div class="setting">
+        <h3>Closed tabs per window</h3>
+        <p>How many closed tabs Firefox remembers in each window. Firefox default: 25.</p>
+        <div class="slider">
+          <input id="tabs" type="range" min="1" max="200" step="1" aria-label="Closed tabs per window">
+          <output id="tabs-out" for="tabs"></output>
+        </div>
+        <p class="how"><strong>How to enable:</strong> in <code class="copy about">about:config</code>, search for
+          <code class="copy">browser.sessionstore.max_tabs_undo</code> and set it to <code class="copy" id="v-tabs"></code>.</p>
+      </div>
+
+      <div class="setting">
+        <h3>Keep for</h3>
+        <p>How long Firefox keeps closed tabs and windows. Firefox default: 14 days. The most Firefox accepts is 24 days.</p>
+        <div class="slider">
+          <input id="days" type="range" min="1" max="24" step="1" aria-label="Days to keep closed tabs and windows">
+          <output id="days-out" for="days"></output>
+        </div>
+        <p class="how"><strong>How to enable:</strong> in <code class="copy about">about:config</code>, search for
+          <code class="copy">browser.sessionstore.cleanup.forget_closed_after</code> and set it to <code class="copy" id="v-days"></code>
+          (<span id="v-days-text"></span> in milliseconds).</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Privacy</h2>
+      <p>No data is collected and nothing is sent anywhere. The add-on has one permission, <code>sessions</code>: it reads the closed tabs and reopens one.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span id="version"></span> ·
+    <a href="https://github.com/hthomee/firefox-extension-per-window-undo-close-tab" target="_blank" rel="noopener">Source code on GitHub</a> ·
+    MIT license. Tested on macOS with Firefox 157. Windows and Linux are untested.
+  </footer>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="options.js"></script>
+</body>
+</html>

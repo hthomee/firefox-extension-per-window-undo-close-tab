@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "Per-Window Undo Close Tab",
+  "version": "1.0.0",
+  "description": "Reopens the most recently closed tab of the current window only (Firefox's behaviour before version 116).",
+  "author": "FFFan",
+  "homepage_url": "https://github.com/hthomee/firefox-extension-per-window-undo-close-tab",
+  "icons": {
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png",
+    "128": "icons/icon-128.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "per-window-undo-close-tab@fffan",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
+  "permissions": [
+    "sessions"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "undo-close-tab-in-this-window": {
+      "suggested_key": {
+        "default": "Alt+Shift+T",
+        "mac": "Alt+Shift+T"
+      },
+      "description": "Reopen the last tab closed in this window"
+    },
+    "undo-close-tab-in-this-window-cmd": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+T",
+        "mac": "Command+Shift+T"
+      },
+      "description": "Reopen the last tab closed in this window (the usual key, active once Firefox's own binding is removed)"
+    }
+  }
+}

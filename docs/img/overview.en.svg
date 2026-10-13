@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 707" width="1200" height="707" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+<title>What the add-on changes</title>
+<style>.title,.label{fill:#1a3434}.foot{fill:#5c6b6b}@media (prefers-color-scheme: dark){.title,.label{fill:#e4efee}.foot{fill:#9db1b0}}</style>
+<defs><linearGradient id="plainRoot" x1="0" y1="0" x2="0.6" y2="1"><stop offset="0" stop-color="#f1f6f6"/><stop offset="1" stop-color="#d3e2e2"/></linearGradient><linearGradient id="plainHub" x1="0" y1="0" x2="0.6" y2="1"><stop offset="0" stop-color="#f1f6f6"/><stop offset="1" stop-color="#d3e2e2"/></linearGradient><linearGradient id="tealRoot" x1="0" y1="0" x2="0.6" y2="1"><stop offset="0" stop-color="#54aea3"/><stop offset="1" stop-color="#2f6360"/></linearGradient><linearGradient id="tealHub" x1="0" y1="0" x2="0.6" y2="1"><stop offset="0" stop-color="#6ec4b9"/><stop offset="1" stop-color="#3c8a82"/></linearGradient></defs>
+<text class="title" x="40" y="58" font-size="26" font-weight="600">What the add-on changes</text>
+<text class="label" x="40" y="112" font-size="16" font-weight="600">Without the add-on, Firefox 116 and newer</text>
+<path d="M370 252.5 H400.0 V252.5 H430" fill="none" stroke="#479a90" stroke-width="3" stroke-linejoin="round"/>
+<path d="M760 252.5 H785.0 V171.5 H810" fill="none" stroke="#479a90" stroke-width="3" stroke-linejoin="round"/>
+<path d="M760 252.5 H785.0 V252.5 H810" fill="none" stroke="#479a90" stroke-width="3" stroke-linejoin="round"/>
+<path d="M760 252.5 H785.0 V333.5 H810" fill="none" stroke="#479a90" stroke-width="3" stroke-linejoin="round"/>
+<rect x="40" y="214.5" width="330" height="76" rx="8" fill="url(#plainRoot)"/>
+<text x="60" y="239" font-size="17" font-weight="600" fill="#1a3434">Firefox's own shortcut</text>
+<text x="60" y="262" font-size="14" fill="#3c5252">Mac: Cmd+Shift+T</text>
+<text x="60" y="281" font-size="14" fill="#3c5252">Windows and Linux: Ctrl+Shift+T</text>
+<rect x="430" y="214.5" width="330" height="76" rx="8" fill="url(#plainHub)"/>
+<text x="450" y="248" font-size="17" font-weight="600" fill="#1a3434">One shared history</text>
+<text x="450" y="272" font-size="14" fill="#3c5252">for all windows, in closing order</text>
+<rect x="810" y="138" width="350" height="67" rx="8" fill="#e3eded"/>
+<text x="830" y="167" font-size="16" font-weight="600" fill="#1a3434">A tab closed in another window</text>
+<text x="830" y="190" font-size="13.5" fill="#3c5252">moves into the window you are in</text>
+<rect x="810" y="219" width="350" height="67" rx="8" fill="#e3eded"/>
+<text x="830" y="248" font-size="16" font-weight="600" fill="#1a3434">A whole closed window</text>
+<text x="830" y="271" font-size="13.5" fill="#3c5252">opens again as a new window</text>
+<rect x="810" y="300" width="350" height="67" rx="8" fill="#e3eded"/>
+<text x="830" y="329" font-size="16" font-weight="600" fill="#1a3434">The entire previous session</text>
+<text x="830" y="352" font-size="13.5" fill="#3c5252">comes back, often as several windows</text>
+<text class="label" x="40" y="431" font-size="16" font-weight="600">With the add-on</text>
+<path d="M370 550.0 H400.0 V550.0 H430" fill="none" stroke="#479a90" stroke-width="3" stroke-linejoin="round"/>
+<path d="M760 550.0 H785.0 V490.5 H810" fill="none" stroke="#479a90" stroke-width="3" stroke-linejoin="round"/>
+<path d="M760 550.0 H785.0 V590.5 H810" fill="none" stroke="#479a90" stroke-width="3" stroke-linejoin="round"/>
+<rect x="40" y="512.0" width="330" height="76" rx="8" fill="url(#tealRoot)"/>
+<text x="60" y="536" font-size="17" font-weight="600" fill="#ffffff">The add-on's shortcut</text>
+<text x="60" y="560" font-size="14" fill="#e3f2f0">Mac: Option+Shift+T</text>
+<text x="60" y="578" font-size="14" fill="#e3f2f0">Windows and Linux: Alt+Shift+T</text>
+<rect x="430" y="512.0" width="330" height="76" rx="8" fill="url(#tealHub)"/>
+<text x="450" y="546" font-size="17" font-weight="600" fill="#ffffff">This window's closed tabs only</text>
+<text x="450" y="569" font-size="14" fill="#e3f2f0">nothing from any other window</text>
+<rect x="810" y="457" width="350" height="67" rx="8" fill="#cfe8e4"/>
+<text x="830" y="486" font-size="16" font-weight="600" fill="#12302d">The last closed tab comes back</text>
+<text x="830" y="509" font-size="13.5" fill="#2f5450">in this window</text>
+<rect x="810" y="538" width="350" height="105" rx="8" fill="#cfe8e4"/>
+<text x="830" y="568" font-size="16" font-weight="600" fill="#12302d">Everything else stays as it is</text>
+<text x="830" y="590" font-size="13.5" fill="#2f5450">no tabs from other windows,</text>
+<text x="830" y="609" font-size="13.5" fill="#2f5450">no new windows,</text>
+<text x="830" y="627" font-size="13.5" fill="#2f5450">no session restore</text>
+<text class="foot" x="40" y="683" font-size="14">Tested on macOS with Firefox 157. Windows and Linux are untested.</text>
+</svg>
